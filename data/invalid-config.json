@@ -1,0 +1,143 @@
+{
+  "kind": "relational-contract",
+  "contracts": [
+    {
+      "table": "A",
+      "columns": {
+        "id": {
+          "type": "long",
+          "required": true
+        },
+        "b_id": {
+          "type": "long",
+          "required": false
+        }
+      },
+      "primary": [
+        "id"
+      ],
+      "unique": [],
+      "foreign_keys": [
+        {
+          "columns": [
+            "b_id"
+          ],
+          "target": "B",
+          "target_columns": [
+            "id"
+          ],
+          "match": "SIMPLE"
+        }
+      ]
+    },
+    {
+      "table": "B",
+      "columns": {
+        "id": {
+          "type": "long",
+          "required": true
+        },
+        "a_id": {
+          "type": "long",
+          "required": false
+        }
+      },
+      "primary": [
+        "id"
+      ],
+      "unique": [],
+      "foreign_keys": [
+        {
+          "columns": [
+            "a_id"
+          ],
+          "target": "A",
+          "target_columns": [
+            "id"
+          ],
+          "match": "SIMPLE"
+        }
+      ]
+    },
+    {
+      "table": "C",
+      "columns": {
+        "id": {
+          "type": "long",
+          "required": true
+        },
+        "a_id": {
+          "type": "long",
+          "required": false
+        }
+      },
+      "primary": [
+        "id"
+      ],
+      "unique": [],
+      "foreign_keys": [
+        {
+          "columns": [
+            "a_id"
+          ],
+          "target": "A",
+          "target_columns": [
+            "id"
+          ],
+          "match": "SIMPLE"
+        }
+      ]
+    }
+  ],
+  "existing": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "candidates": [
+    {
+      "row_id": "a1",
+      "table": "A",
+      "values": {
+        "id": 1,
+        "b_id": 2
+      }
+    },
+    {
+      "row_id": "b2",
+      "table": "B",
+      "values": {
+        "id": 2,
+        "a_id": 1
+      }
+    },
+    {
+      "row_id": "a-bad",
+      "table": "A",
+      "values": {
+        "id": 3,
+        "b_id": 999
+      }
+    },
+    {
+      "row_id": "b-bad",
+      "table": "B",
+      "values": {
+        "id": 4,
+        "a_id": 3
+      }
+    },
+    {
+      "row_id": "c-bad",
+      "table": "C",
+      "values": {
+        "id": 5,
+        "a_id": 3
+      }
+    }
+  ],
+  "mode": "unknown",
+  "batch_id": "bc1",
+  "warehouse_version": "cw1",
+  "contract_version": "cv1"
+}

@@ -1,0 +1,78 @@
+{
+  "kind": "relational-contract",
+  "contracts": [
+    {
+      "table": "P",
+      "columns": {
+        "x": {
+          "type": "long",
+          "required": true
+        },
+        "y": {
+          "type": "long",
+          "required": true
+        }
+      },
+      "primary": [
+        "x",
+        "y"
+      ],
+      "unique": [],
+      "foreign_keys": []
+    },
+    {
+      "table": "Q",
+      "columns": {
+        "id": {
+          "type": "long",
+          "required": true
+        },
+        "x": {
+          "type": "long",
+          "required": false
+        },
+        "y": {
+          "type": "long",
+          "required": false
+        }
+      },
+      "primary": [
+        "id"
+      ],
+      "unique": [],
+      "foreign_keys": [
+        {
+          "columns": [
+            "x",
+            "y"
+          ],
+          "target": "P",
+          "target_columns": [
+            "x",
+            "y"
+          ],
+          "match": "SIMPLE"
+        }
+      ]
+    }
+  ],
+  "existing": {
+    "P": [],
+    "Q": []
+  },
+  "candidates": [
+    {
+      "row_id": "q",
+      "table": "Q",
+      "values": {
+        "id": 1,
+        "x": 123,
+        "y": null
+      }
+    }
+  ],
+  "mode": "closed-subset",
+  "batch_id": "bc1",
+  "warehouse_version": "cw1",
+  "contract_version": "cv1"
+}

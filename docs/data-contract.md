@@ -1,0 +1,7 @@
+# 入仓关系契约子集
+
+值类型long/string/bool严格匹配，long不接收bool。候选row_id全批唯一，表中primary必选非null。unique键采用NULLS DISTINCT：含任一null的unique元组不冲突；主键不允许null。每个unique冲突组的全部新行隔离，旧有效行不隔离或更改；冲突证据列对应全部row_id和已有键。
+
+foreign_keys目标columns必须精确匹配已登记primary或unique，MATCH SIMPLE任一null即跳过，不是查询时等null。已有有效库可作为目标，剩余候选可彼此作目标。最大闭集合从通过本地/unique的新行全集单调删除无目标者，因此合法A1/B2环保留，A3缺B999、B4/C5引用A3要传递隔离。
+
+原因图中直接missing先定位不存在的目标键，传播边引用已隔离父行及根因；同一根多路径保留可解释集合，不能生成没有终点的理由环。atomic模式和closed-subset只影响发布策略，不改变计算所得闭集和隔离原因。初始工具只核对表/候选身份和模式。
