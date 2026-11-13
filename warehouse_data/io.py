@@ -25,3 +25,25 @@ def asset(root,ref):
     raw=p.read_bytes()
     if len(raw)!=integer(ref['bytes']) or hashlib.sha256(raw).hexdigest()!=ref['sha256']:raise ValueError('资产身份不符')
     return raw
+
+def canonical(value):
+    """键排序、无空白的规范化JSON，用于稳定摘要；ensure_ascii=False保持原值可复核。"""
+    return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'))
+
+def digest_json(value):
+    return hashlib.sha256(canonical(value).encode('utf-8')).hexdigest()
+
+def is_long(x):
+    # bool 是 int 子类，long 严格不接收 bool
+    return type(x) is int
+
+def is_string(x):
+    return type(x) is str
+
+def is_bool(x):
+    return type(x) is bool
+
+def is_null(x):
+    return x is None
+
+TYPE_PREDICATES={'long':is_long,'string':is_string,'bool':is_bool}
